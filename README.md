@@ -52,3 +52,8 @@ Para instalar estos requerimientos se hace
 pip3 install -r requirements.txt
 ```
 
+# Solicitudes HTTP con Requests
+
+La librería request hace peticiones a otro tipo de servidores web desde python 
+
+
