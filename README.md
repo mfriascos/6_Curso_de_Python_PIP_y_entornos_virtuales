@@ -62,4 +62,18 @@ Requests allows you to send HTTP/1.1 requests extremely easily. There’s no nee
 
 Es una de las librerias más utilizadas y nos sirve para analizar y manipular datos de archivos duros como CSV. 
 
+```python
+import pandas as pd 
+#Alternativa para project_2del curso de funciones 
+
+df = pd.read_csv('./information_data.csv')  #Para leer el archivo csv 
+df = df[df['Continent'] == 'South America'] #Filtramos los datos por south America 
+
+countries = df['Country'].values            #Función de pandas para entregar los valores de Country
+percentages= df['World Population Percentage'].values 
+
+charts.generate_pie_chart(countries, percentages)
+```
+
+
 
