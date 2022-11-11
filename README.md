@@ -56,4 +56,10 @@ pip3 install -r requirements.txt
 
 La librería request hace peticiones a otro tipo de servidores web desde python 
 
+Requests allows you to send HTTP/1.1 requests extremely easily. There’s no need to manually add query strings to your URLs, or to form-encode your PUT & POST data — but nowadays, just use the json method!
+
+# Pandas 
+
+Es una de las librerias más utilizadas y nos sirve para analizar y manipular datos de archivos duros como CSV. 
+
 
