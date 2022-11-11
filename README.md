@@ -86,6 +86,11 @@ pip install fastapi
 ```sh
 pip install "uvicorn[standard]"
 ```
+Para iniciar uvicorn se escribe: 
+
+```sh 
+uvicorn main:app --reload
+```
 
 
 
