@@ -75,5 +75,17 @@ percentages= df['World Population Percentage'].values
 charts.generate_pie_chart(countries, percentages)
 ```
 
+# Python para Backend: Web Server con FastAPI 
+
+Con python se pueden crear web server con FastApi, para instalar se hace: 
+
+```sh 
+pip install fastapi
+```
+
+```sh
+pip install "uvicorn[standard]"
+```
+
 
 
