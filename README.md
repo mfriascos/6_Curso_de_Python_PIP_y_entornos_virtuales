@@ -92,5 +92,13 @@ Para iniciar uvicorn se escribe:
 uvicorn main:app --reload
 ```
 
+# Qué es Docker
+
+Es una herramienta que sirve para aislar entornos, anteriormente se tenía una versión compartida de python y módulos que se podian entrelazar, luego, con los ambientes virtuales de python se lograron aislar cada dependencia y cada módulo atado a python con eso no se tiene choques entre proyectos y las dependencias y sus versiones. 
+
+Cuanso se quiere llevar el proyecto a la nube, es necesario aislar la versión y posiblemente se pueda colapsar las versiones si no se hace el aislamiento. Esto se realiza con contenedores de docker. 
+
+
+
 
 
