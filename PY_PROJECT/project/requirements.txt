@@ -1,5 +1,5 @@
 # airdrop-ng==1.1
-airgraph-ng==1.1
+# airgraph-ng==1.1
 appdirs==1.4.4
 arandr==0.1.10
 attrs==22.1.0
