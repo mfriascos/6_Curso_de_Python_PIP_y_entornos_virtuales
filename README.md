@@ -127,6 +127,10 @@ services:                           #Se le pondrá un nombre al servicio
             context: .              #El contexto de ese servicio es la carpeta donde 
                                     #está localizado, para ello se escribe punto (.)
             dockerfile: Dockerfile  #Se indica el archivo dockerfile
+        volumes:
+            - .:/app                #Se ubica una etiqueta volumes y se indica que todos los archivos
+                                    #estén enlazados con /app, se hace con el fin de realizar 
+                                    #modificaciones sin que se lance nuevamente el servicio 
 ```
 
 Se puede ejecutar de dos formas, instalando Docker Engine y Docker Desktop, en este caso se instalan todas las dependencias necesarias que se encuentran en la documentación de docker, se inicia el docker dektop y se espera a que este se inicie, una vez se inicia se ejecutan los comandos, en caso de que no se instale docker desktop, se instala docker engine y docker-compose, cuando se ejecuten los comandos, necesariamente se antepone el comando sudo. 
@@ -141,7 +145,42 @@ docker-compose exec app-csv bash    #Se ejecuta esa aplicación, se pone el nomb
 docker-compose down                 #En caso de cometerse un error en algún archivo, es necesario digitar down
                                     #antes de lanzarlo nuevamente 
 ```
+# Dockerizando Web Services
 
+Se utiliza para mantener un servicio en línea 
+
+Para realizar este tipo de dockerización se modifica el archivo DockerFile de la siguiente manera 
+
+```docker
+FROM python:3.8                                                     #Aquí parte con esa versión instalada
+
+WORKDIR /app                                                        #Creará una carpeta dentro de ese contenedor
+COPY requirements.txt /app/requirements.txt                         #Una buena práctica es copiar los archivos 
+                                                                    #de las dependiencias
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt   #Se ejecuta el comando para la instalación 
+                                                                    #de las dependencias
+
+COPY . /app/                                                        #Se copia todo el código  y se lo lleva hacia app
+
+CMD ["uvicorn","main:app","--host","0.0.0.0","--port","80"]         #Se lanza el servidor de uvicorn, luego se ingrese a
+                                                                    #main y después a app, se ingrese al host con el puerto
+                                                                    #0.0.0.0 y se conecte al puerto 80 
+```
+
+En el archivo docker-compose, se realiza 
+
+```yaml
+services:
+  web-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:                      #Se indica que se enlace en el puerto 80 de la máquina
+      - '80:80'                 #local y el del contenedor
+```
 
 
 
