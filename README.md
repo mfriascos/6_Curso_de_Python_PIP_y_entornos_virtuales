@@ -98,6 +98,50 @@ Es una herramienta que sirve para aislar entornos, anteriormente se tenía una v
 
 Cuanso se quiere llevar el proyecto a la nube, es necesario aislar la versión y posiblemente se pueda colapsar las versiones si no se hace el aislamiento. Esto se realiza con contenedores de docker. 
 
+# Dockerizando Scripts de Python 
+
+Se creará un nuevo archivo, este archivo por nombre tiene Dockerfile, luego se ejecuta 
+
+```docker
+FROM python:3.8                                                     #Aquí parte con esa versión instalada
+
+WORKDIR /app                                                        #Creará una carpeta dentro de ese contenedor
+COPY requirements.txt /app/requirements.txt                         #Una buena práctica es copiar los archivos 
+                                                                    #de las dependiencias
+
+RUN pip install --no-cache-dir --upgrade -r /app/requirements.txt   #Se ejecuta el comando para la instalación 
+                                                                    #de las dependencias
+
+COPY . /app/                                                        #Se copia todo el código  y se lo lleva hacia app
+
+CMD bash -c "while true; do sleep 1; done"                          #Se crea un ciclo infinito para que siempre 
+                                                                    #se esté ejecutando
+```
+
+Segundo, se crea un archivo llamado docker-compose.yml, el cual declara como se inicia y desde donde se inicia ese contenedor 
+
+```yaml
+services:                           #Se le pondrá un nombre al servicio 
+    app-csv:                        #En este caso se llamará app-csv 
+        build:
+            context: .              #El contexto de ese servicio es la carpeta donde 
+                                    #está localizado, para ello se escribe punto (.)
+            dockerfile: Dockerfile  #Se indica el archivo dockerfile
+```
+
+Se puede ejecutar de dos formas, instalando Docker Engine y Docker Desktop, en este caso se instalan todas las dependencias necesarias que se encuentran en la documentación de docker, se inicia el docker dektop y se espera a que este se inicie, una vez se inicia se ejecutan los comandos, en caso de que no se instale docker desktop, se instala docker engine y docker-compose, cuando se ejecuten los comandos, necesariamente se antepone el comando sudo. 
+
+```sh
+docker-compose build                #Este comando realiza la construcción del sistema, y se ejecuta cada una de 
+                                    #las instrucciones del docker file 
+docker-compose up -d                #Con este comando se lanza el proyecto
+docker-compose ps                   #Se escribe para ver el estado de ese contenedor 
+docker-compose exec app-csv bash    #Se ejecuta esa aplicación, se pone el nombre del servicio y que lo lance 
+                                    #en un terminal de tipo bash 
+docker-compose down                 #En caso de cometerse un error en algún archivo, es necesario digitar down
+                                    #antes de lanzarlo nuevamente 
+```
+
 
 
 
